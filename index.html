@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veera Annapureddy | Software Engineer</title>
+  <meta name="description" content="Backend Software Engineer specializing in Java, Kotlin, Databricks, Snowflake, and Kafka." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#home" class="nav-logo">
+      <span class="logo-bracket">&lt;</span>VA<span class="logo-bracket">/&gt;</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li>
+        <a href="https://github.com/veeraannapu" target="_blank" class="nav-github">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <p class="hero-greeting">Hi there, I'm</p>
+    <h1 class="hero-name">Veera Annapureddy</h1>
+    <div class="hero-role">
+      <span style="color:var(--text-muted)">I build </span>
+      <span class="typed-text" id="typed"></span><span class="cursor">|</span>
+    </div>
+    <p class="hero-desc">
+      Backend Software Engineer building scalable data pipelines, event-driven systems, and
+      high-throughput APIs. Specialized in JVM languages, big data platforms, and real-time streaming.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-socials">
+      <a href="https://github.com/veeraannapu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/veeraannapureddy" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="mailto:veeraannapu@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">01. About Me</span>
+      <h2 class="section-title">Who I Am</h2>
+    </div>
+    <div class="about-grid">
+
+      <div class="about-text" data-anim="left">
+        <p>I'm a passionate <strong>Backend Software Engineer</strong> with deep expertise in building robust, scalable systems that power real-world business operations. I specialize in JVM languages like <strong>Java</strong> and <strong>Kotlin</strong>, and I'm experienced in designing high-throughput, event-driven architectures using <strong>Apache Kafka</strong>.</p>
+        <p>Currently, I work on <strong>Order History</strong> systems — building and maintaining reliable data pipelines and backend services that process large-scale transactional data across distributed platforms. I work extensively with <strong>Databricks</strong> and <strong>Snowflake</strong> to engineer data solutions that are fast, accurate, and production-grade.</p>
+        <p>I thrive on solving hard backend problems — from optimizing query performance to designing resilient microservices. When I'm not coding, I'm exploring distributed systems, cloud-native patterns, and the latest in the data engineering ecosystem.</p>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <span class="highlight-num" data-count="5">5+</span>
+            <span class="highlight-label">Years Experience</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-num" data-count="30">30+</span>
+            <span class="highlight-label">Projects Built</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-num" data-count="10">10+</span>
+            <span class="highlight-label">Technologies</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-anim="right">
+        <div class="code-window">
+          <div class="code-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span class="code-fname">about.kt</span>
+          </div>
+          <pre class="code-body"><code><span class="ck">val</span> <span class="cv">veera</span> = Engineer(
+  <span class="cp">role</span>    = <span class="cs">"Backend Software Engineer"</span>,
+  <span class="cp">domain</span>  = <span class="cs">"Order History &amp; Data Systems"</span>,
+  <span class="cp">stack</span>   = listOf(
+    <span class="cs">"Java"</span>, <span class="cs">"Kotlin"</span>,
+    <span class="cs">"Kafka"</span>, <span class="cs">"Databricks"</span>,
+    <span class="cs">"Snowflake"</span>, <span class="cs">"Spring Boot"</span>,
+  ),
+  <span class="cp">currently</span> = mapOf(
+    <span class="cs">"building"</span> <span class="ck">to</span> <span class="cs">"Order History pipelines"</span>,
+    <span class="cs">"exploring"</span> <span class="ck">to</span> <span class="cs">"Data Lakehouse patterns"</span>,
+  ),
+)</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section class="section skills" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">02. Skills</span>
+      <h2 class="section-title">Tech Stack</h2>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-cat" data-anim>
+        <div class="skill-icon"><i class="fas fa-code"></i></div>
+        <h3>Languages</h3>
+        <ul class="skill-list">
+          <li><span class="badge b-java">Java</span></li>
+          <li><span class="badge b-kotlin">Kotlin</span></li>
+          <li><span class="badge b-python">Python</span></li>
+          <li><span class="badge b-sql">SQL</span></li>
+          <li><span class="badge b-scala">Scala</span></li>
+          <li><span class="badge b-shell">Shell / Bash</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-cat" data-anim>
+        <div class="skill-icon"><i class="fas fa-server"></i></div>
+        <h3>Backend &amp; Messaging</h3>
+        <ul class="skill-list">
+          <li><span class="badge b-spring">Spring Boot</span></li>
+          <li><span class="badge b-kafka">Apache Kafka</span></li>
+          <li><span class="badge b-rest">REST APIs</span></li>
+          <li><span class="badge b-graphql">GraphQL</span></li>
+          <li><span class="badge b-grpc">gRPC</span></li>
+          <li><span class="badge b-express">Microservices</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-cat" data-anim>
+        <div class="skill-icon"><i class="fas fa-database"></i></div>
+        <h3>Data &amp; Analytics</h3>
+        <ul class="skill-list">
+          <li><span class="badge b-databricks">Databricks</span></li>
+          <li><span class="badge b-snowflake">Snowflake</span></li>
+          <li><span class="badge b-spark">Apache Spark</span></li>
+          <li><span class="badge b-pg">PostgreSQL</span></li>
+          <li><span class="badge b-redis">Redis</span></li>
+          <li><span class="badge b-elastic">Elasticsearch</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-cat" data-anim>
+        <div class="skill-icon"><i class="fas fa-cloud"></i></div>
+        <h3>Cloud &amp; DevOps</h3>
+        <ul class="skill-list">
+          <li><span class="badge b-aws">AWS</span></li>
+          <li><span class="badge b-docker">Docker</span></li>
+          <li><span class="badge b-k8s">Kubernetes</span></li>
+          <li><span class="badge b-gha">GitHub Actions</span></li>
+          <li><span class="badge b-tf">Terraform</span></li>
+          <li><span class="badge b-git">Git</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section class="section projects" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">03. Projects</span>
+      <h2 class="section-title">Featured Work</h2>
+    </div>
+    <div class="projects-grid">
+
+      <article class="proj-card" data-anim>
+        <div class="proj-inner">
+          <div class="proj-meta">
+            <span class="proj-tag">Data Engineering</span>
+            <div class="proj-links">
+              <a href="https://github.com/veeraannapu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="proj-title">Order History Data Pipeline</h3>
+          <p class="proj-desc">Designed and built end-to-end data pipelines for Order History systems processing millions of transactional records. Leveraged Databricks and Apache Spark for large-scale ETL, with Snowflake as the analytical warehouse layer, enabling reliable order tracking and historical reporting.</p>
+          <div class="proj-tech">
+            <span>Java</span><span>Kotlin</span><span>Databricks</span><span>Snowflake</span><span>Apache Spark</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj-card" data-anim>
+        <div class="proj-inner">
+          <div class="proj-meta">
+            <span class="proj-tag">Event Streaming</span>
+            <div class="proj-links">
+              <a href="https://github.com/veeraannapu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="proj-title">Event-Driven Order Microservices</h3>
+          <p class="proj-desc">Architected event-driven microservices using Apache Kafka for real-time order event streaming across distributed systems. Built resilient consumers and producers in Kotlin with Spring Boot, ensuring exactly-once delivery semantics and fault-tolerant processing at scale.</p>
+          <div class="proj-tech">
+            <span>Kotlin</span><span>Spring Boot</span><span>Kafka</span><span>Docker</span><span>AWS</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj-card" data-anim>
+        <div class="proj-inner">
+          <div class="proj-meta">
+            <span class="proj-tag">Backend API</span>
+            <div class="proj-links">
+              <a href="https://github.com/veeraannapu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="proj-title">High-Performance Order Query API</h3>
+          <p class="proj-desc">Built a high-throughput REST API in Java/Spring Boot to serve order history data to downstream consumers. Implemented multi-layer caching with Redis, query optimization on PostgreSQL, and horizontal scaling on Kubernetes — reducing P99 latency by over 60%.</p>
+          <div class="proj-tech">
+            <span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>Redis</span><span>Kubernetes</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="projects-cta">
+      <a href="https://github.com/veeraannapu" target="_blank" class="btn btn-outline">
+        <i class="fab fa-github"></i> View All on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">04. Contact</span>
+      <h2 class="section-title">Get In Touch</h2>
+    </div>
+    <div class="contact-wrap" data-anim>
+      <p class="contact-intro">Whether you have an exciting opportunity, a challenging project, or just want to connect — my inbox is always open. Let's build something amazing together!</p>
+      <div class="contact-links">
+        <a href="mailto:veeraannapu@gmail.com" class="contact-card">
+          <div class="c-icon"><i class="fas fa-envelope"></i></div>
+          <div class="c-info">
+            <span class="c-label">Email</span>
+            <span class="c-val">veeraannapu@gmail.com</span>
+          </div>
+          <i class="fas fa-arrow-right c-arr"></i>
+        </a>
+        <a href="https://github.com/veeraannapu" target="_blank" class="contact-card">
+          <div class="c-icon"><i class="fab fa-github"></i></div>
+          <div class="c-info">
+            <span class="c-label">GitHub</span>
+            <span class="c-val">github.com/veeraannapu</span>
+          </div>
+          <i class="fas fa-arrow-right c-arr"></i>
+        </a>
+        <a href="https://linkedin.com/in/veeraannapureddy" target="_blank" class="contact-card">
+          <div class="c-icon"><i class="fab fa-linkedin-in"></i></div>
+          <div class="c-info">
+            <span class="c-label">LinkedIn</span>
+            <span class="c-val">linkedin.com/in/veeraannapureddy</span>
+          </div>
+          <i class="fas fa-arrow-right c-arr"></i>
+        </a>
+      </div>
+      <a href="mailto:veeraannapu@gmail.com" class="btn btn-primary contact-btn">
+        Say Hello <i class="fas fa-paper-plane"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="container">
+    <p class="footer-text">Designed &amp; Built by <strong>Veera Annapureddy</strong></p>
+    <p class="footer-code"><span class="cc">// Powered by curiosity &amp; caffeine ☕</span></p>
+    <div class="footer-links">
+      <a href="https://github.com/veeraannapu" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/veeraannapureddy" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="mailto:veeraannapu@gmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js"></script>
+</body>
+</html>
