@@ -2,318 +2,712 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Veera Annapureddy | Software Engineer</title>
-  <meta name="description" content="Backend Software Engineer specializing in Java, Kotlin, Databricks, Snowflake, and Kafka." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio — Software Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #F5F2EC;
+      --ink: #1A1814;
+      --accent: #C85A2A;
+      --accent2: #4A7C6F;
+      --muted: #8A8580;
+      --border: #D8D3CB;
+      --card: #EEEAE2;
+    }
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    html { scroll-behavior: smooth; }
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css" />
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: rgba(245, 242, 236, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 120px 32px;
+    }
+
+    section:first-of-type { padding-top: 180px; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 48px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    /* HERO */
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(44px, 8vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--ink);
+      color: var(--bg);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      padding: 12px 28px;
+      border: 1px solid var(--border);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--ink);
+      transform: translateY(-1px);
+    }
+
+    .hero-scroll {
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 32px;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .about-text p strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .about-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .stat {
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* PROJECTS */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .project-card {
+      background: var(--card);
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 24px;
+      transition: background 0.2s, transform 0.2s;
+      cursor: default;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.5s forwards;
+    }
+
+    .project-card:nth-child(1) { animation-delay: 0.1s; }
+    .project-card:nth-child(2) { animation-delay: 0.2s; }
+    .project-card:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .project-card:hover {
+      background: var(--border);
+      transform: translateX(4px);
+    }
+
+    .project-num {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .project-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .project-links a {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .project-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .placeholder-note {
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+      padding: 24px 36px;
+      background: var(--card);
+      border-left: 2px solid var(--accent);
+      opacity: 0.7;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .skill-group h3 {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-group ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .skill-group li {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-group li::before {
+      content: '—';
+      color: var(--border);
+      font-size: 10px;
+    }
+
+    /* CONTACT */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-text h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 38px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .contact-text h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .contact-text p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13px;
+      transition: color 0.2s;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-link:hover { color: var(--accent); }
+
+    .contact-link-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: 64px;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ANIMATIONS ON LOAD */
+    .hero-name, .hero-desc, .hero-cta, .hero-scroll {
+      opacity: 0;
+      animation: fadeUp 0.7s forwards;
+    }
+
+    .hero-name { animation-delay: 0.1s; }
+    .hero-desc { animation-delay: 0.25s; }
+    .hero-cta { animation-delay: 0.4s; }
+    .hero-scroll { animation-delay: 0.55s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 20px; }
+      section { padding: 80px 24px; }
+      section:first-of-type { padding-top: 140px; }
+      .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-links { flex-direction: row; align-items: flex-start; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
-<nav class="navbar" id="navbar">
-  <div class="nav-container">
-    <a href="#home" class="nav-logo">
-      <span class="logo-bracket">&lt;</span>VA<span class="logo-bracket">/&gt;</span>
-    </a>
-    <ul class="nav-links" id="nav-links">
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">dev<span>.</span></a>
+    <ul class="nav-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li>
-        <a href="https://github.com/veeraannapu" target="_blank" class="nav-github">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      </li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+  </nav>
 
-<!-- ══ HERO ══ -->
-<section class="hero" id="home">
-  <div class="hero-particles" id="particles"></div>
-  <div class="hero-content">
-    <p class="hero-greeting">Hi there, I'm</p>
-    <h1 class="hero-name">Veera Annapureddy</h1>
-    <div class="hero-role">
-      <span style="color:var(--text-muted)">I build </span>
-      <span class="typed-text" id="typed"></span><span class="cursor">|</span>
-    </div>
+  <!-- HERO -->
+  <section id="home">
+    <div class="section-label">Software Engineer</div>
+    <h1 class="hero-name">
+      Veera Annapureddy<br/>
+      <em>builds things</em><br/>
+      that matter.
+    </h1>
     <p class="hero-desc">
-      Backend Software Engineer building scalable data pipelines, event-driven systems, and
-      high-throughput APIs. Specialized in JVM languages, big data platforms, and real-time streaming.
+      Full-stack engineer focused on crafting clean, performant, and thoughtful software.
+      Currently open to new opportunities.
     </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-primary">View My Work</a>
-      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
     </div>
-    <div class="hero-socials">
-      <a href="https://github.com/veeraannapu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/veeraannapureddy" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-      <a href="mailto:veeraannapu@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll
     </div>
-  </div>
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
+  </section>
 
-<!-- ══ ABOUT ══ -->
-<section class="section about" id="about">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">01. About Me</span>
-      <h2 class="section-title">Who I Am</h2>
-    </div>
+  <hr class="divider"/>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About Me</div>
     <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Hi, I'm <strong>Veera Annapureddy</strong> — a software engineer with a passion for building
+          elegant solutions to complex problems.
+        </p>
+        <p>
+          I enjoy working across the full stack, with a particular interest in
+          <strong>backend systems</strong> and <strong>developer tooling</strong>.
+          When I'm not writing code, I'm exploring new technologies and contributing to open source.
+        </p>
+        <p>
+          Based in <strong>Your City</strong>. Available for full-time roles and freelance projects.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Open Source Contributions</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="about-text" data-anim="left">
-        <p>I'm a passionate <strong>Backend Software Engineer</strong> with deep expertise in building robust, scalable systems that power real-world business operations. I specialize in JVM languages like <strong>Java</strong> and <strong>Kotlin</strong>, and I'm experienced in designing high-throughput, event-driven architectures using <strong>Apache Kafka</strong>.</p>
-        <p>Currently, I work on <strong>Order History</strong> systems — building and maintaining reliable data pipelines and backend services that process large-scale transactional data across distributed platforms. I work extensively with <strong>Databricks</strong> and <strong>Snowflake</strong> to engineer data solutions that are fast, accurate, and production-grade.</p>
-        <p>I thrive on solving hard backend problems — from optimizing query performance to designing resilient microservices. When I'm not coding, I'm exploring distributed systems, cloud-native patterns, and the latest in the data engineering ecosystem.</p>
-        <div class="about-highlights">
-          <div class="highlight-item">
-            <span class="highlight-num" data-count="5">5+</span>
-            <span class="highlight-label">Years Experience</span>
+  <hr class="divider"/>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Selected Work</div>
+    <div class="projects-list">
+
+      <div class="project-card">
+        <div>
+          <div class="project-num">01</div>
+          <div class="project-title">Project Name</div>
+          <div class="project-desc">
+            A short description of what this project does and why it's interesting.
+            What problem does it solve? What makes it worth noting?
           </div>
-          <div class="highlight-item">
-            <span class="highlight-num" data-count="30">30+</span>
-            <span class="highlight-label">Projects Built</span>
+          <div class="project-tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">PostgreSQL</span>
           </div>
-          <div class="highlight-item">
-            <span class="highlight-num" data-count="10">10+</span>
-            <span class="highlight-label">Technologies</span>
-          </div>
+        </div>
+        <div class="project-links">
+          <a href="#">Live ↗</a>
+          <a href="#">GitHub ↗</a>
         </div>
       </div>
 
-      <div data-anim="right">
-        <div class="code-window">
-          <div class="code-header">
-            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-            <span class="code-fname">about.kt</span>
+      <div class="project-card">
+        <div>
+          <div class="project-num">02</div>
+          <div class="project-title">Project Name</div>
+          <div class="project-desc">
+            Brief description of the project's purpose, impact, and your specific contributions.
           </div>
-          <pre class="code-body"><code><span class="ck">val</span> <span class="cv">veera</span> = Engineer(
-  <span class="cp">role</span>    = <span class="cs">"Backend Software Engineer"</span>,
-  <span class="cp">domain</span>  = <span class="cs">"Order History &amp; Data Systems"</span>,
-  <span class="cp">stack</span>   = listOf(
-    <span class="cs">"Java"</span>, <span class="cs">"Kotlin"</span>,
-    <span class="cs">"Kafka"</span>, <span class="cs">"Databricks"</span>,
-    <span class="cs">"Snowflake"</span>, <span class="cs">"Spring Boot"</span>,
-  ),
-  <span class="cp">currently</span> = mapOf(
-    <span class="cs">"building"</span> <span class="ck">to</span> <span class="cs">"Order History pipelines"</span>,
-    <span class="cs">"exploring"</span> <span class="ck">to</span> <span class="cs">"Data Lakehouse patterns"</span>,
-  ),
-)</code></pre>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="project-links">
+          <a href="#">Live ↗</a>
+          <a href="#">GitHub ↗</a>
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
+      <div class="project-card">
+        <div>
+          <div class="project-num">03</div>
+          <div class="project-title">Project Name</div>
+          <div class="project-desc">
+            What does this project do? What technologies did you use and what did you learn?
+          </div>
+          <div class="project-tags">
+            <span class="tag">TypeScript</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">Tailwind</span>
+          </div>
+        </div>
+        <div class="project-links">
+          <a href="#">Live ↗</a>
+          <a href="#">GitHub ↗</a>
+        </div>
+      </div>
 
-<!-- ══ SKILLS ══ -->
-<section class="section skills" id="skills">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">02. Skills</span>
-      <h2 class="section-title">Tech Stack</h2>
+      <div class="placeholder-note">
+        ✦ More projects coming soon — share your work and I'll add them here.
+      </div>
+
     </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Skills & Tools</div>
     <div class="skills-grid">
-
-      <div class="skill-cat" data-anim>
-        <div class="skill-icon"><i class="fas fa-code"></i></div>
+      <div class="skill-group">
         <h3>Languages</h3>
-        <ul class="skill-list">
-          <li><span class="badge b-java">Java</span></li>
-          <li><span class="badge b-kotlin">Kotlin</span></li>
-          <li><span class="badge b-python">Python</span></li>
-          <li><span class="badge b-sql">SQL</span></li>
-          <li><span class="badge b-scala">Scala</span></li>
-          <li><span class="badge b-shell">Shell / Bash</span></li>
+        <ul>
+          <li>JavaScript</li>
+          <li>TypeScript</li>
+          <li>Python</li>
+          <li>SQL</li>
         </ul>
       </div>
-
-      <div class="skill-cat" data-anim>
-        <div class="skill-icon"><i class="fas fa-server"></i></div>
-        <h3>Backend &amp; Messaging</h3>
-        <ul class="skill-list">
-          <li><span class="badge b-spring">Spring Boot</span></li>
-          <li><span class="badge b-kafka">Apache Kafka</span></li>
-          <li><span class="badge b-rest">REST APIs</span></li>
-          <li><span class="badge b-graphql">GraphQL</span></li>
-          <li><span class="badge b-grpc">gRPC</span></li>
-          <li><span class="badge b-express">Microservices</span></li>
+      <div class="skill-group">
+        <h3>Frameworks</h3>
+        <ul>
+          <li>React</li>
+          <li>Next.js</li>
+          <li>Node.js</li>
+          <li>FastAPI</li>
         </ul>
       </div>
-
-      <div class="skill-cat" data-anim>
-        <div class="skill-icon"><i class="fas fa-database"></i></div>
-        <h3>Data &amp; Analytics</h3>
-        <ul class="skill-list">
-          <li><span class="badge b-databricks">Databricks</span></li>
-          <li><span class="badge b-snowflake">Snowflake</span></li>
-          <li><span class="badge b-spark">Apache Spark</span></li>
-          <li><span class="badge b-pg">PostgreSQL</span></li>
-          <li><span class="badge b-redis">Redis</span></li>
-          <li><span class="badge b-elastic">Elasticsearch</span></li>
+      <div class="skill-group">
+        <h3>Tools & Platforms</h3>
+        <ul>
+          <li>Git / GitHub</li>
+          <li>Docker</li>
+          <li>AWS</li>
+          <li>PostgreSQL</li>
         </ul>
       </div>
+    </div>
+  </section>
 
-      <div class="skill-cat" data-anim>
-        <div class="skill-icon"><i class="fas fa-cloud"></i></div>
-        <h3>Cloud &amp; DevOps</h3>
-        <ul class="skill-list">
-          <li><span class="badge b-aws">AWS</span></li>
-          <li><span class="badge b-docker">Docker</span></li>
-          <li><span class="badge b-k8s">Kubernetes</span></li>
-          <li><span class="badge b-gha">GitHub Actions</span></li>
-          <li><span class="badge b-tf">Terraform</span></li>
-          <li><span class="badge b-git">Git</span></li>
-        </ul>
+  <hr class="divider"/>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-text">
+        <div class="section-label">Contact</div>
+        <h2>Let's work<br/><em>together.</em></h2>
+        <p>
+          Open to full-time roles, freelance collaborations, and interesting conversations.
+          Don't hesitate to reach out.
+        </p>
+        <a href="mailto:you@email.com" class="btn-primary">Say Hello →</a>
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══ PROJECTS ══ -->
-<section class="section projects" id="projects">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">03. Projects</span>
-      <h2 class="section-title">Featured Work</h2>
-    </div>
-    <div class="projects-grid">
-
-      <article class="proj-card" data-anim>
-        <div class="proj-inner">
-          <div class="proj-meta">
-            <span class="proj-tag">Data Engineering</span>
-            <div class="proj-links">
-              <a href="https://github.com/veeraannapu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            </div>
-          </div>
-          <h3 class="proj-title">Order History Data Pipeline</h3>
-          <p class="proj-desc">Designed and built end-to-end data pipelines for Order History systems processing millions of transactional records. Leveraged Databricks and Apache Spark for large-scale ETL, with Snowflake as the analytical warehouse layer, enabling reliable order tracking and historical reporting.</p>
-          <div class="proj-tech">
-            <span>Java</span><span>Kotlin</span><span>Databricks</span><span>Snowflake</span><span>Apache Spark</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="proj-card" data-anim>
-        <div class="proj-inner">
-          <div class="proj-meta">
-            <span class="proj-tag">Event Streaming</span>
-            <div class="proj-links">
-              <a href="https://github.com/veeraannapu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            </div>
-          </div>
-          <h3 class="proj-title">Event-Driven Order Microservices</h3>
-          <p class="proj-desc">Architected event-driven microservices using Apache Kafka for real-time order event streaming across distributed systems. Built resilient consumers and producers in Kotlin with Spring Boot, ensuring exactly-once delivery semantics and fault-tolerant processing at scale.</p>
-          <div class="proj-tech">
-            <span>Kotlin</span><span>Spring Boot</span><span>Kafka</span><span>Docker</span><span>AWS</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="proj-card" data-anim>
-        <div class="proj-inner">
-          <div class="proj-meta">
-            <span class="proj-tag">Backend API</span>
-            <div class="proj-links">
-              <a href="https://github.com/veeraannapu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            </div>
-          </div>
-          <h3 class="proj-title">High-Performance Order Query API</h3>
-          <p class="proj-desc">Built a high-throughput REST API in Java/Spring Boot to serve order history data to downstream consumers. Implemented multi-layer caching with Redis, query optimization on PostgreSQL, and horizontal scaling on Kubernetes — reducing P99 latency by over 60%.</p>
-          <div class="proj-tech">
-            <span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>Redis</span><span>Kubernetes</span>
-          </div>
-        </div>
-      </article>
-
-    </div>
-    <div class="projects-cta">
-      <a href="https://github.com/veeraannapu" target="_blank" class="btn btn-outline">
-        <i class="fab fa-github"></i> View All on GitHub
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CONTACT ══ -->
-<section class="section contact" id="contact">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">04. Contact</span>
-      <h2 class="section-title">Get In Touch</h2>
-    </div>
-    <div class="contact-wrap" data-anim>
-      <p class="contact-intro">Whether you have an exciting opportunity, a challenging project, or just want to connect — my inbox is always open. Let's build something amazing together!</p>
       <div class="contact-links">
-        <a href="mailto:veeraannapu@gmail.com" class="contact-card">
-          <div class="c-icon"><i class="fas fa-envelope"></i></div>
-          <div class="c-info">
-            <span class="c-label">Email</span>
-            <span class="c-val">veeraannapu@gmail.com</span>
-          </div>
-          <i class="fas fa-arrow-right c-arr"></i>
+        <a href="mailto:you@email.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          you@email.com
         </a>
-        <a href="https://github.com/veeraannapu" target="_blank" class="contact-card">
-          <div class="c-icon"><i class="fab fa-github"></i></div>
-          <div class="c-info">
-            <span class="c-label">GitHub</span>
-            <span class="c-val">github.com/veeraannapu</span>
-          </div>
-          <i class="fas fa-arrow-right c-arr"></i>
+        <a href="https://github.com/" target="_blank" class="contact-link">
+          <span class="contact-link-label">GitHub</span>
+          github.com/yourhandle
         </a>
-        <a href="https://linkedin.com/in/veeraannapureddy" target="_blank" class="contact-card">
-          <div class="c-icon"><i class="fab fa-linkedin-in"></i></div>
-          <div class="c-info">
-            <span class="c-label">LinkedIn</span>
-            <span class="c-val">linkedin.com/in/veeraannapureddy</span>
-          </div>
-          <i class="fas fa-arrow-right c-arr"></i>
+        <a href="https://linkedin.com/" target="_blank" class="contact-link">
+          <span class="contact-link-label">LinkedIn</span>
+          linkedin.com/in/yourname
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-link-label">Resume</span>
+          Download PDF ↓
         </a>
       </div>
-      <a href="mailto:veeraannapu@gmail.com" class="btn btn-primary contact-btn">
-        Say Hello <i class="fas fa-paper-plane"></i>
-      </a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══ FOOTER ══ -->
-<footer class="footer">
-  <div class="container">
-    <p class="footer-text">Designed &amp; Built by <strong>Veera Annapureddy</strong></p>
-    <p class="footer-code"><span class="cc">// Powered by curiosity &amp; caffeine ☕</span></p>
-    <div class="footer-links">
-      <a href="https://github.com/veeraannapu" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/veeraannapureddy" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      <a href="mailto:veeraannapu@gmail.com"><i class="fas fa-envelope"></i></a>
-    </div>
-  </div>
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Your Name. All rights reserved.</p>
+    <p>Designed & built with care.</p>
+  </footer>
 
-<!-- Scripts -->
-<script src="js/main.js"></script>
 </body>
 </html>
