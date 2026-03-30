@@ -72,6 +72,7 @@ const revealObserver = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
+document.body.classList.add('js-ready');
 document.querySelectorAll('[data-anim]').forEach(el => revealObserver.observe(el));
 
 /* ── FLOATING PARTICLES (hero) ── */
