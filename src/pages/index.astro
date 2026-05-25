@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Veera Annapureddy - Software Engineer" current="about">
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero__label">Software Engineer</div>
+      <h1>Veera<br/>Annapureddy</h1>
+      <hr class="divider" />
+      <p class="hero__lead">
+        I build backend systems that have to work - the kind where a bug at 2am means someone's order disappears or a notification never lands. Eight years in, I still find that genuinely interesting.
+      </p>
+      <div class="hero__links">
+        <a href="/experience">See my work -</a>
+        <a href="/contact" class="hero__links__secondary">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="container">
+      <h4>About</h4>
+      <h2>Who I am</h2>
+      <hr class="divider" />
+
+      <div class="about__body">
+        <p>
+          Right now I'm at <strong>Grainger</strong> on the Customer Order team - which sounds less dramatic than it is. The system handles over 1.3M+ Kafka events a day, seven years of order history, and millions of accounts. When something breaks, people notice. That's kept me sharp.
+        </p>
+        <p>
+          Before that I worked in healthcare software at <strong>GuideWell Florida Blue</strong>, and insurance-domain applications at <strong>Aflac</strong>. Different industries, same underlying challenge: distributed systems with real consequences when they go wrong.
+        </p>
+        <p>
+          I lean toward the backend - Java/Kotlin, Python, Kafka, data pipelines - but I've shipped enough full-stack work to hold my own on the front. The part I find most satisfying isn't any specific technology. It's when a team is working well together, the architecture is clear, and everyone understands what they're building and why. I spend a lot of time trying to get teams there.
+        </p>
+        <p>
+          I mentor developers, do code reviews, pairing sessions, run knowledge-sharing sessions, and pull people into architecture conversations earlier than most teams do. Not because it's in a job description - because it's how the best work gets done.
+        </p>
+        <p>
+          I have an M.S. in Computer Science from Columbus State University. I got there via a B.Tech from KL University in India, and a move to the US that pushed me to rebuild from scratch. That path taught me more about adaptability than any course did.
+        </p>
+      </div>
+
+      <div class="about__stats">
+        <div class="stat">
+          <span class="stat__number">8+</span>
+          <span class="stat__label">Years building</span>
+        </div>
+        <div class="stat">
+          <span class="stat__number">5</span>
+          <span class="stat__label">Companies & clients</span>
+        </div>
+        <div class="stat">
+          <span class="stat__number">1.3M+</span>
+          <span class="stat__label">Kafka events / day</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="currently">
+    <div class="container">
+      <h4>Currently</h4>
+      <div class="currently__grid">
+        <div class="currently__item">
+          <span class="currently__dot currently__dot--green"></span>
+          <div>
+            <strong>Software Engineer @ W.W. Grainger</strong>
+            <p>Customer Order domain - Java/Kotlin, Python, Kafka, Databricks, Snowflake</p>
+          </div>
+        </div>
+        <div class="currently__item">
+          <span class="currently__dot"></span>
+          <div>
+            <strong>Mentoring &amp; knowledge sharing</strong>
+            <p>Running internal sessions on architecture and engineering practices with the team.</p>
+          </div>
+        </div>
+        <div class="currently__item">
+          <span class="currently__dot"></span>
+          <div>
+            <strong>Writing (coming back to it)</strong>
+            <p>A few posts in progress - Kafka event design, lessons from a production incident, and Medallion architecture in practice.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+.hero {
+  padding: 6rem 0 5rem;
+  border-bottom: none;
+}
+
+.hero__label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.hero h1 { color: var(--ink); margin-bottom: 0; }
+
+.hero__lead {
+  font-size: 1.15rem;
+  color: var(--ink-muted);
+  max-width: 540px;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.hero__links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.hero__links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.hero__links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.hero__links__secondary {
+  color: var(--ink-muted) !important;
+  border-color: var(--border-dark) !important;
+  font-weight: 400 !important;
+}
+
+.about__body {
+  max-width: 600px;
+  color: var(--ink-muted);
+  margin-bottom: 3rem;
+}
+
+.about__body strong { color: var(--ink); font-weight: 500; }
+
+.about__stats {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.stat__number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.stat__label {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+.currently__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 1.5rem;
+}
+
+.currently__item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.currently__dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-dark);
+  margin-top: 0.45rem;
+}
+
+.currently__dot--green {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.currently__item strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+
+.currently__item p {
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+  margin: 0;
+}
+</style>

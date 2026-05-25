@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  current?: string;
+}
+
+const { title, description = "Veera Annapureddy — Software Engineer", current = "" } = Astro.props;
+
+const nav = [
+  { label: "About",      href: "/" },
+  { label: "Experience", href: "/experience" },
+  { label: "Skills",     href: "/skills" },
+  { label: "Contact",    href: "/contact" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container container--wide nav__inner">
+      <a href="/" class="nav__logo">VA</a>
+      <ul class="nav__links">
+        {nav.map(({ label, href }) => (
+          <li>
+            <a
+              href={href}
+              class={current === label.toLowerCase() ? "active" : ""}
+            >{label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="footer">
+    <div class="container container--wide footer__inner">
+      <span>Built by Veera Annapureddy</span>
+      <div class="footer__links">
+        <a href="https://linkedin.com/in/veeraannapureddy" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/veeraannapu" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:veeraannapu@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

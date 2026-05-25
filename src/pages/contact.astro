@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Contact · Veera Annapureddy" current="contact">
+
+  <section class="contact-hero">
+    <div class="container">
+      <h4>Contact</h4>
+      <h2>Let's talk</h2>
+      <hr class="divider" />
+    </div>
+  </section>
+
+  <section class="contact-body">
+    <div class="container">
+      <div class="contact-intro">
+        <p>
+          I'm happy to connect with other engineers, talk through architecture questions, or just have a conversation if you're working on something interesting. No pitch decks needed.
+        </p>
+        <p>
+          Best way to reach me is email or LinkedIn. I respond to both.
+        </p>
+      </div>
+
+      <div class="contact-options">
+        <a href="mailto:veeraannapu@gmail.com" class="contact-card">
+          <span class="contact-card__label">Email</span>
+          <span class="contact-card__value">veeraannapu@gmail.com</span>
+          <span class="contact-card__arrow">→</span>
+        </a>
+
+        <a href="https://linkedin.com/in/veeraannapureddy" target="_blank" rel="noopener" class="contact-card">
+          <span class="contact-card__label">LinkedIn</span>
+          <span class="contact-card__value">linkedin.com/in/veeraannapureddy</span>
+          <span class="contact-card__arrow">→</span>
+        </a>
+
+        <a href="https://github.com/veeraannapu" target="_blank" rel="noopener" class="contact-card">
+          <span class="contact-card__label">GitHub</span>
+          <span class="contact-card__value">github.com/veeraannapu</span>
+          <span class="contact-card__arrow">→</span>
+        </a>
+      </div>
+
+      <div class="contact-location">
+        <span class="tag">📍 Charlotte, NC</span>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+.contact-hero {
+  padding: 5rem 0 2rem;
+}
+
+.contact-body {
+  padding-top: 1rem;
+}
+
+.contact-intro {
+  max-width: 520px;
+  color: var(--ink-muted);
+  margin-bottom: 3rem;
+}
+
+.contact-intro p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.contact-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-dark);
+  text-decoration: none;
+}
+
+.contact-card__label {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--ink-faint);
+  width: 56px;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.contact-card__value {
+  font-size: 0.875rem;
+  color: var(--ink);
+  flex: 1;
+}
+
+.contact-card__arrow {
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+  transition: transform 0.15s;
+}
+
+.contact-card:hover .contact-card__arrow {
+  transform: translateX(3px);
+  color: var(--accent);
+}
+
+.contact-location {
+  margin-top: 0.5rem;
+}
+</style>

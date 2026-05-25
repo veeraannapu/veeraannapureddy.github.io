@@ -1,0 +1,171 @@
+---
+import Base from '../layouts/Base.astro';
+
+const skills = [
+  {
+    category: "Day-to-day",
+    note: "What I work with most. Comfortable going deep here.",
+    items: [
+      { name: "Java", note: "8 years" },
+      { name: "Kotlin", note: "3 years, current primary" },
+      { name: "Python", note: "1+ year, current primary" },
+      { name: "Spring Boot", note: "across every job" },
+      { name: "AWS (EC2, S3, Lambda)", note: "" },
+      { name: "Apache Kafka", note: "event design, consumer groups, DLTs" },
+      { name: "Databricks", note: "Medallion architecture, Spark pipelines" },
+      { name: "Snowflake", note: "analytical + operational patterns" },
+      { name: "PostgreSQL", note: "" },
+      { name: "REST API design", note: "" },
+    ],
+  },
+  {
+    category: "Solid, not daily",
+    note: "Have shipped real work here. Not rusty, but not my first reach.",
+    items: [
+      { name: "React / Angular", note: "enough for full-stack work" },
+      { name: "Cassandra", note: "session/cart at scale" },
+      { name: "MongoDB", note: "" },
+      { name: "Redis", note: "" },
+      { name: "OpenShift", note: "GuideWell production" },
+      { name: "SAP Hybris", note: "B2B/B2C e-commerce" },
+    ],
+  },
+  {
+    category: "Tooling & practices",
+    note: "The surrounding craft.",
+    items: [
+      { name: "TDD / JUnit / Mockito", note: "" },
+      { name: "CI/CD (Maven, GitHub Actions)", note: "" },
+      { name: "Splunk / Dynatrace", note: "observability in prod" },
+      { name: "SonarQube", note: "" },
+      { name: "Git", note: "" },
+      { name: "Agile / Scrum", note: "" },
+      { name: "HCP Vault", note: "secrets management" },
+    ],
+  },
+  {
+    category: "Ways of working",
+    note: "Less tangible, more important than the list above.",
+    items: [
+      { name: "Event-driven architecture", note: "" },
+      { name: "Microservices design", note: "" },
+      { name: "Domain-driven design", note: "" },
+      { name: "Technical mentoring", note: "" },
+      { name: "Cross-functional collaboration", note: "" },
+      { name: "Production incident response", note: "" },
+      { name: "Knowledge sharing / documentation", note: "" },
+    ],
+  },
+];
+---
+
+<Base title="Skills · Veera Annapureddy" current="skills">
+
+  <section class="skills-hero">
+    <div class="container">
+      <h4>Tech</h4>
+      <h2>Skills &amp; stack</h2>
+      <hr class="divider" />
+      <p class="skills-hero__note">
+        I've tried to be honest here about depth vs. breadth. A long flat list of logos doesn't tell you much. This does.
+      </p>
+    </div>
+  </section>
+
+  <section class="skills-grid-section">
+    <div class="container container--wide">
+      <div class="skills-grid">
+        {skills.map((group) => (
+          <div class="skill-group">
+            <h3 class="skill-group__name">{group.category}</h3>
+            <p class="skill-group__note">{group.note}</p>
+            <ul class="skill-list">
+              {group.items.map(item => (
+                <li class="skill-item">
+                  <span class="skill-item__name">{item.name}</span>
+                  {item.note && <span class="skill-item__note">{item.note}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+.skills-hero {
+  padding: 5rem 0 3rem;
+}
+
+.skills-hero__note {
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  max-width: 480px;
+  margin: 0;
+}
+
+.skills-grid-section {
+  padding-top: 1rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 3rem 4rem;
+}
+
+.skill-group__name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.skill-group__note {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.skill-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.skill-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-item:last-child {
+  border-bottom: none;
+}
+
+.skill-item__name {
+  font-size: 0.875rem;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.skill-item__note {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+.languages {
+  padding-top: 2rem;
+}
+</style>

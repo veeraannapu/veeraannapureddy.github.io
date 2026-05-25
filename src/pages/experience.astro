@@ -1,0 +1,309 @@
+---
+import Base from '../layouts/Base.astro';
+
+const jobs = [
+  {
+    company: "W.W. Grainger",
+    location: "Chicago, IL",
+    roles: [
+      {
+        title: "Software Engineer",
+        period: "May 2022 - Present",
+        type: "Full-time",
+        bullets: [
+          "Working with Customer Orders - this means 1.3M+ Kafka events per day, seven years of searchable order history, and millions of active accounts. The kind of scale where getting something wrong is immediately visible.",
+          "Built the HTTP APIs that make orders searchable across channels. Re-orders from that history account for roughly 6% of Grainger's order revenue - a number that's easy to forget is backed by code someone has to maintain.",
+          "Kafka event pipeline provides real-time order status to downstream systems: email notifications, mobile notifications, tracking, order displays across the platform. Designing for at-least-once delivery with idempotent consumers took a few iterations to get right.",
+          "Spring Boot/Kotlin microservices feed Databricks and Snowflake pipelines for both operational and analytical use - two different read patterns with different freshness requirements.",
+          "Led the Order Detail Experience project from design through production. Also owned HCP Vault Migration and a DBaaS migration, both with near-zero production impact.",
+          "Diagnosed and fixed a high-severity auth misconfiguration in production - shipped a targeted fix, wrote the postmortem, and turned it into a team learning session rather than a blame exercise.",
+          "Run architecture and engineering practice sessions for the team. Started as informal conversations, turned into something the team now expects.",
+        ],
+        tags: ["Java", "Kotlin", "Spring Boot", "Python", "Kafka", "Databricks", "Snowflake", "SQL", "NoSQL", "AWS", "Docker", "DataDog"],
+      },
+      {
+        title: "Software Engineer",
+        period: "Feb 2021 - May 2022",
+        type: "via IT Syntax, Inc.",
+        bullets: [
+          "Same Customer Order codebase - backend services in Java and Kotlin, Kafka-driven pipelines, Spring Boot microservices handling the order lifecycle.",
+          "Brought into architecture reviews and code standards conversations early on; applied TDD with JUnit and Mockito across the team.",
+        ],
+        tags: ["Java", "Kotlin", "Kafka", "Spring Boot", "JUnit"],
+      },
+      {
+        title: "Software Engineer",
+        period: "Nov 2019 - Jan 2021",
+        type: "via Code Gravity, LLC",
+        bullets: [
+          "B2B and B2C e-commerce on SAP Hybris - cart and checkout, account management, order approvals, replenishment - serving millions of transactions across Grainger's catalog of millions of SKUs.",
+          "Built Impex scripts, cron jobs, and feature toggles for real-time product, pricing, and promotion management. Some of these ran every few minutes in production.",
+          "Spring Boot microservices with REST APIs (Java 11); Cassandra for session and cart persistence.",
+          "Supported Hypercare post-Go-Live, ran root cause analysis on production incidents, managed CI/CD via Maven and Git.",
+        ],
+        tags: ["Java", "SAP Hybris", "Spring Boot", "Cassandra", "Maven", "CI/CD"],
+      },
+    ],
+  },
+  {
+    company: "GuideWell Florida Blue",
+    location: "Jacksonville, FL",
+    roles: [
+      {
+        title: "Software Engineer",
+        period: "Feb 2019 - Nov 2019",
+        type: "via Code Gravity, LLC",
+        bullets: [
+          "Full-stack application for one of the largest US healthcare insurers - millions of members, real compliance requirements, and a team spread across multiple time zones.",
+          "Containerized microservices on Kubernetes and OpenShift; handled auto-scaling, service discovery, and on-call support through production launch.",
+          "Spring Data with PostgreSQL and MongoDB on the backend; AngularJS frontend with client-side validations and REST/SOAP integrations.",
+          "First time I had to care deeply about deployment infrastructure, not just the code. Kubernetes makes you think differently about failure modes.",
+        ],
+        tags: ["Spring Boot", "AngularJS", "PostgreSQL", "MongoDB", "Kubernetes", "OpenShift", "Kafka"],
+      },
+    ],
+  },
+  {
+    company: "Aflac",
+    location: "Columbus, GA",
+    roles: [
+      {
+        title: "Application Developer",
+        period: "Aug 2017 - Jan 2019",
+        type: "via Capricorn Systems, Inc.",
+        bullets: [
+          "Frontend-heavy role - HTML5, CSS3, JavaScript, Bootstrap, jQuery. Spent a lot of time on cross-browser issues and mobile responsiveness.",
+          "Content management via Crownpeak CMS and SharePoint; CTA split-screen designs for mobile users. Got good at making things work on devices I couldn't test on.",
+          "Documented system architecture with UML; worked in weekly Agile sprints. My first experience of what 'working software over comprehensive documentation' actually means in practice.",
+        ],
+        tags: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "jQuery", "Crownpeak CMS", "Agile"],
+      },
+    ],
+  },
+  {
+    company: "Infosys",
+    location: "India",
+    roles: [
+      {
+        title: "Software Engineer Intern",
+        period: "Jan 2015 - May 2015",
+        type: "",
+        bullets: [
+          "Training in software testing, data warehouse concepts, and T-SQL.",
+          "Led a three-person team to deliver a \"Text Based Pattern Lock for Android\" - my first time owning something from idea to working demo.",
+        ],
+        tags: ["Java", "T-SQL", "Android", "JUnit"],
+      },
+    ],
+  },
+];
+---
+
+<Base title="Experience · Veera Annapureddy" current="experience">
+
+  <section class="exp-hero">
+    <div class="container">
+      <h4>Career</h4>
+      <h2>Where I've worked</h2>
+      <hr class="divider" />
+      <p class="exp-hero__sub">Eight years across e-commerce, healthcare, and insurance. Most of it at scale, all of it in teams.</p>
+    </div>
+  </section>
+
+  <section class="exp-list">
+    <div class="container container--wide">
+      {jobs.map((job) => (
+        <div class="company">
+          <div class="company__header">
+            <div>
+              <h3 class="company__name">{job.company}</h3>
+              <span class="company__loc">{job.location}</span>
+            </div>
+          </div>
+
+          {job.roles.map((role, i) => (
+            <div class={`role ${i > 0 ? 'role--sub' : ''}`}>
+              <div class="role__meta">
+                <span class="role__title">{role.title}</span>
+                <span class="role__period">{role.period}</span>
+                {role.type && <span class="role__type">{role.type}</span>}
+              </div>
+
+              <ul class="role__bullets">
+                {role.bullets.map(b => <li>{b}</li>)}
+              </ul>
+
+              <div class="role__tags">
+                {role.tags.map(t => <span class="tag">{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="edu">
+    <div class="container">
+      <h4>Education</h4>
+      <h2>Academic background</h2>
+      <hr class="divider" />
+      <div class="edu__grid">
+        <div class="edu__item">
+          <span class="edu__degree">M.S. Computer Science</span>
+          <span class="edu__school">Columbus State University</span>
+          <span class="edu__detail">Columbus, GA · 2017</span>
+        </div>
+        <div class="edu__item">
+          <span class="edu__degree">B.Tech Computer Science &amp; Engineering</span>
+          <span class="edu__school">KL University</span>
+          <span class="edu__detail">Andhra Pradesh, India · 2015</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+.exp-hero {
+  padding: 5rem 0 3rem;
+}
+
+.exp-hero__sub {
+  color: var(--ink-muted);
+  font-size: 1.05rem;
+  max-width: 480px;
+  margin: 0;
+}
+
+.exp-list {
+  padding-top: 1rem;
+}
+
+.company {
+  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.company:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.company__header {
+  margin-bottom: 1.75rem;
+}
+
+.company__name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+.company__loc {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.03em;
+}
+
+.role {
+  margin-bottom: 2.5rem;
+}
+
+.role--sub {
+  padding-top: 2rem;
+  border-top: 1px dashed var(--border);
+}
+
+.role__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.role__title {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.role__period {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+}
+
+.role__type {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+.role__bullets {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.role__bullets li {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  padding-left: 1.1rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+.role__bullets li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: var(--border-dark);
+  font-size: 0.75rem;
+  top: 0.12em;
+}
+
+.role__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* ── Education ─────────────────────────────────── */
+.edu__grid {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.edu__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.edu__degree {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.edu__school {
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.edu__detail {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+}
+</style>
