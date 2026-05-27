@@ -81,8 +81,8 @@ import Base from '../layouts/Base.astro';
         <div class="currently__item">
           <span class="currently__dot"></span>
           <div>
-            <strong>Writing (coming back to it)</strong>
-            <p>A few posts in progress - Kafka event design, lessons from a production incident, and Medallion architecture in practice.</p>
+            <strong><a href="/writing" class="currently__link">Writing</a></strong>
+            <p>Thinking out loud on CI/CD, Kafka event design, and distributed systems. More in progress.</p>
           </div>
         </div>
       </div>
@@ -213,5 +213,128 @@ import Base from '../layouts/Base.astro';
   font-size: 0.875rem;
   color: var(--ink-muted);
   margin: 0;
+}
+
+.currently__link {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-dark);
+}
+.currently__link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+/* ── Writing Preview ─────────────────────────────── */
+.writing-preview {
+  padding-top: 1rem;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.post-card {
+  display: block;
+  padding: 1.75rem 2rem;
+  background: var(--bg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.post-card:last-child { border-bottom: none; }
+
+.post-card:not(.post-card--draft):hover {
+  background: var(--bg-subtle, #fafaf8);
+}
+
+.post-card--draft {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.post-card__meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.post-card__tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.15em 0.5em;
+  border-radius: 2px;
+}
+
+.post-card__date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  margin-left: auto;
+}
+
+.post-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+  line-height: 1.35;
+}
+
+.post-card__excerpt {
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+  max-width: 600px;
+}
+
+.post-card__read {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.post-card__draft-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border: 1px dashed var(--border-dark);
+  padding: 0.2em 0.6em;
+  border-radius: 2px;
+}
+
+.all-posts-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-dark);
+  transition: color 0.15s;
+}
+.all-posts-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
 }
 </style>

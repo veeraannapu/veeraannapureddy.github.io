@@ -1,0 +1,204 @@
+---
+import Base from '../layouts/Base.astro';
+
+const posts = [
+  {
+    slug: "manual-approval-gate",
+    title: "Why I Proposed Removing Our Manual Approval Gate",
+    excerpt: "Manual approval gates feel safe. They're usually not. After years of watching deployment delays compound into real production pain, I wrote a formal proposal to remove ours - and learned more from writing it than I expected.",
+    tags: ["CI/CD", "Engineering Culture"],
+    date: "May 2025",
+    readTime: "8 min",
+    live: true,
+  },
+  {
+    slug: "kafka-schema-design",
+    title: "Schema Design Mistakes That Cost You at 1.3M Events/Day",
+    excerpt: "Too loose, too rigid, or just wrong. Eight years of Kafka event design lessons - what breaks, why it breaks, and how to build schemas that survive real production scale.",
+    tags: ["Kafka", "Event Design"],
+    date: "Coming soon",
+    readTime: "",
+    live: false,
+  },
+  {
+    slug: "medallion-architecture",
+    title: "Medallion Architecture in Practice: What the Diagrams Don't Show You",
+    excerpt: "Bronze, Silver, Gold sounds clean on a whiteboard. The reality of running it on Databricks and Snowflake with operational and analytical workloads is messier and more interesting.",
+    tags: ["Data Engineering", "Databricks"],
+    date: "Coming soon",
+    readTime: "",
+    live: false,
+  },
+];
+---
+
+<Base title="Writing · Veera Annapureddy" current="writing">
+
+  <section class="writing-hero">
+    <div class="container">
+      <h4>Writing</h4>
+      <h2>Posts & essays</h2>
+      <hr class="divider" />
+      <p class="writing-hero__sub">
+        I write about the problems I've actually run into - not tutorials, not hot takes.
+        Distributed systems, CI/CD, event-driven architecture, and the team dynamics that make or break all of it.
+      </p>
+    </div>
+  </section>
+
+  <section class="writing-list">
+    <div class="container">
+      <div class="posts">
+        {posts.map((post) => (
+          post.live ? (
+            <a href={`/blog/${post.slug}`} class="post-card">
+              <div class="post-card__meta">
+                {post.tags.map(t => <span class="post-card__tag">{t}</span>)}
+                <span class="post-card__date">{post.date}</span>
+                {post.readTime && <span class="post-card__read-time">{post.readTime} read</span>}
+              </div>
+              <h3 class="post-card__title">{post.title}</h3>
+              <p class="post-card__excerpt">{post.excerpt}</p>
+              <span class="post-card__cta">Read post →</span>
+            </a>
+          ) : (
+            <div class="post-card post-card--draft">
+              <div class="post-card__meta">
+                {post.tags.map(t => <span class="post-card__tag">{t}</span>)}
+                <span class="post-card__date">{post.date}</span>
+              </div>
+              <h3 class="post-card__title">{post.title}</h3>
+              <p class="post-card__excerpt">{post.excerpt}</p>
+              <span class="post-card__draft-label">In progress</span>
+            </div>
+          )
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+.writing-hero {
+  padding: 5rem 0 3rem;
+}
+
+.writing-hero__sub {
+  color: var(--ink-muted);
+  font-size: 1.05rem;
+  max-width: 520px;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.writing-list {
+  padding-top: 1rem;
+  padding-bottom: 5rem;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.post-card {
+  display: block;
+  padding: 2rem 2rem;
+  background: var(--bg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.post-card:last-child {
+  border-bottom: none;
+}
+
+.post-card:not(.post-card--draft):hover {
+  background: var(--bg-subtle, #fafaf8);
+  text-decoration: none;
+}
+
+.post-card--draft {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.post-card__meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.post-card__tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.15em 0.5em;
+  border-radius: 2px;
+}
+
+.post-card__date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  margin-left: auto;
+}
+
+.post-card__read-time {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+}
+
+.post-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.65rem;
+  line-height: 1.35;
+}
+
+.post-card__excerpt {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  margin-bottom: 1.1rem;
+  max-width: 620px;
+}
+
+.post-card__cta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+}
+
+.post-card:hover .post-card__cta {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.post-card__draft-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border: 1px dashed var(--border-dark);
+  padding: 0.2em 0.6em;
+  border-radius: 2px;
+}
+</style>

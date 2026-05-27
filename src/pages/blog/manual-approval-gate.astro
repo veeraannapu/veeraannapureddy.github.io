@@ -1,0 +1,528 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Why I Proposed Removing Our Manual Approval Gate · Veera Annapureddy" current="writing">
+
+  <section class="post-hero">
+    <div class="container container--narrow">
+      <a href="/writing" class="back-link">← Writing</a>
+      <div class="post-meta">
+        <span class="post-tag">CI/CD</span>
+        <span class="post-tag">Engineering Culture</span>
+        <span class="post-date">May 2025</span>
+        <span class="post-read">8 min read</span>
+      </div>
+      <h1>Why I Proposed Removing Our Manual Approval Gate</h1>
+      <p class="post-subtitle">
+        Manual approval gates feel safe. They feel responsible. They feel like the kind of thing any developer would insist on to use.
+        I used to think that too - until I started paying attention to what they actually cost us.
+      </p>
+    </div>
+  </section>
+
+  <article class="post-body">
+    <div class="container container--narrow">
+
+      <h2>The backstory</h2>
+
+      <p>
+        I work on a high-volume order processing system. On any given day, the system is handling well over a million events, serving millions of customer accounts, and carrying years of transaction history. When something goes wrong in a system like this, people notice immediately - support tickets spike, operations teams get paged, and the trust customers place in the platform takes a quiet hit.
+      </p>
+
+      <p>
+        For a long time, our CI/CD pipeline relied on a manual approval gate before any production release. Developers had to manually check the last deployment time, review recent changes, and apply a production tag. On paper, it was a safety measure. In practice, it had become something else entirely.
+      </p>
+
+      <blockquote>
+        Manual gates often feel safe, but they sometimes create bottlenecks without adding actual quality checks.
+      </blockquote>
+
+      <h2>What the pain actually looked like</h2>
+
+      <p>
+        The problems weren't dramatic. There was no single moment where the approval gate caused a catastrophic incident I could point to. It was slower and quieter than that - accumulated friction that was easy to dismiss in isolation but hard to ignore in aggregate.
+      </p>
+
+      <ul>
+        <li><strong>Deployments slowed down</strong> in ways that were hard to argue against individually. An approver was in a meeting. A reviewer was in a different timezone. A hotfix that should have taken 20 minutes took 3 hours because the right person wasn't available.</li>
+        <li><strong>Developer feedback loops stretched.</strong> When you can't ship a fix and see the result quickly, you start batching changes. Batching means bigger deployments. Bigger deployments mean more risk and harder rollbacks.</li>
+        <li><strong>The gate created false confidence.</strong> Because a human reviewed it, it felt safer. But the review was happening at the worst possible time - after the code was written, after tests ran, when cognitive load was highest and context was lowest.</li>
+        <li><strong>Real incidents got worse.</strong> We had a production issue involving duplicate orders linked to a toggle-related race condition. By the time a fix was ready, the manual approval step added meaningful delay to getting it out. A faster pipeline would have meant fewer affected records.</li>
+        <li><strong>Uncertainty about what we were deploying.</strong> Without deep visibility into each deployment's change bundle, approvers often felt uncertain - not about the specific code, but about what else might be riding along. That uncertainty made people conservative in ways that slowed things down without meaningfully improving safety.</li>
+      </ul>
+
+      <h2>Writing the proposal</h2>
+
+      <p>
+        I've been at companies where people complain about process in Slack but never do anything about it. I didn't want that to be me. So I wrote a formal proposal and brought it to the team.
+      </p>
+
+      <p>
+        Writing it was harder than I expected - not technically, but structurally. The challenge was that I was asking people to give up something that felt safe. The burden of proof was on me to show that we'd actually be <em>safer</em> without the gate, not just faster.
+      </p>
+
+      <p>Here's how I framed it:</p>
+
+      <div class="numbered-steps">
+        <div class="step">
+          <span class="step__num">01</span>
+          <div>
+            <strong>Acknowledge the real risk first.</strong>
+            Don't pretend the gate has no value. It exists because someone got burned before. Name that, respect it, then explain why the world has changed since then.
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__num">02</span>
+          <div>
+            <strong>Show what replaces it - specifically.</strong>
+            Saying "we'll use automation instead" isn't enough. I outlined: feature toggles for risky changes, dedicated release branches for high-risk deployments, enhanced monitoring as a real-time safety net, automated rollback capability, and a phased rollout starting with one service.
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__num">03</span>
+          <div>
+            <strong>Use a real incident to make it concrete.</strong>
+            Abstract arguments about speed don't land. A real example - even a small one - where the gate delayed response to a production issue lands differently. I used one from our own history.
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__num">04</span>
+          <div>
+            <strong>Don't make it a binary choice.</strong>
+            The proposal wasn't "remove the gate forever." It was "pilot removal on one service, measure it, then decide." That framing dramatically lowers perceived risk for stakeholders.
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__num">05</span>
+          <div>
+            <strong>Name your safety measures clearly.</strong>
+            Feature toggles, automated rollbacks, production fallback plans, comprehensive test coverage. I put these in the proposal explicitly so no one could walk away thinking we were removing a guardrail with nothing underneath it.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout__label">Honest reflection</div>
+        <p>
+          The hardest part wasn't getting the proposal approved - it was confronting my own uncertainty. I had to be honest with the team that I wasn't 100% certain this was the right call. What I was certain about was that the current state had a cost we weren't measuring. Engineers who frame proposals as "I'm right" tend to get pushback. Engineers who frame proposals as "here's the trade-off I think we should make" tend to get conversations.
+        </p>
+      </div>
+
+      <h2>What replaces the gate</h2>
+
+      <p>The alternative to manual gates isn't chaos - it's investment in the right infrastructure.</p>
+
+      <h3>Feature toggles</h3>
+      <p>
+        This is the single most powerful tool you can have. If you can deploy code that's "dark" - in production but not activated - you've separated deployment from release. That means you can ship at any time and turn things on deliberately, with observability, and the ability to turn them back off instantly without a rollback. Manual approval gates largely exist because teams haven't built this capability yet.
+      </p>
+
+      <h3>Automated rollback</h3>
+      <p>
+        Rollback should be a button, not a procedure. If reverting to the last known good state requires human intervention and coordination, it's too slow. The goal is: detect → decide → revert in minutes, not hours. When rollback is fast and reliable, the cost of a bad deployment drops dramatically - which means the value of a gate trying to prevent bad deployments also drops.
+      </p>
+
+      <h3>Real monitoring, not just alerts</h3>
+      <p>
+        There's a difference between having alerts and having observability. Alerts tell you something broke. Observability lets you understand what changed, when, and why - and correlate it with the deployment timeline. If you have that, you don't need a human to review every deployment. You need humans to respond when the system tells them something is wrong.
+      </p>
+
+      <h3>Phased rollout</h3>
+      <p>
+        Deploy to a small percentage of traffic first. Watch it. Then expand. This is how you get the safety benefit of "someone review this" without the bottleneck of "someone manually approve this." The system is your reviewer. It just doesn't need a meeting invite.
+      </p>
+
+      <hr class="section-break" />
+
+      <h2>The broader lesson</h2>
+
+      <p>
+        I've worked in healthcare software, insurance platforms, and high-volume e-commerce. Every domain has its version of the manual approval gate. Sometimes it's a deployment gate. Sometimes it's a change management ticket that requires three signatures. Sometimes it's a code freeze window that lasts two weeks before a major release.
+      </p>
+
+      <p>
+        These things usually start as reasonable responses to real problems. They accumulate over time, and nobody removes them because removal feels risky. The process becomes the system. Eventually, the process itself is causing the kind of incidents it was designed to prevent.
+      </p>
+
+      <p>
+        The question I try to ask now: <em>Is this control actually reducing risk, or is it distributing the feeling of risk?</em> Those are different things. A manual gate that makes the approver feel responsible for a deployment doesn't make the deployment safer. It just moves accountability around in a way that can feel like safety.
+      </p>
+
+      <blockquote>
+        The goal of a CI/CD pipeline isn't just to ship code faster. It's to make the cost of being wrong low enough that being right doesn't require perfection.
+      </blockquote>
+
+      <p>
+        When you build toward that, manual approval gates start to look less like safety nets and more like the thing you built before you had a real safety net.
+      </p>
+
+      <div class="takeaway">
+        <div class="takeaway__label">Key takeaways</div>
+        <ul>
+          <li>Manual gates add latency without eliminating risk - measure the cost before defending the process</li>
+          <li>The alternative to gates is investment: feature toggles, automated rollback, real observability</li>
+          <li>Frame proposals as trade-off conversations, not arguments - you'll get further</li>
+          <li>Start with a pilot on one service. Let the data make the case for broader rollout</li>
+          <li>Rollback speed is your best safety guarantee - faster than any approval process</li>
+          <li>Separate "deployment" from "release" with feature flags and you've solved 80% of the problem</li>
+        </ul>
+      </div>
+
+      <h2>Where I'd look next</h2>
+
+      <p>
+        If you're working through a similar conversation at your company: the DORA research on deployment frequency and change failure rate tells a clear story. The State of DevOps reports consistently show that speed and stability aren't in tension - teams that deploy more frequently also have lower failure rates. That data is useful when making the case internally.
+      </p>
+
+      <p>
+        Also worth understanding: trunk-based development. A lot of the risk that manual gates are trying to manage comes from long-lived feature branches that accumulate divergence. Shorter cycles reduce that risk structurally, before you even need a deployment gate conversation.
+      </p>
+
+      <p>
+        The infrastructure investment is real. Feature toggles take time to build well. Good rollback requires you to think about database migrations, state management, and downstream consumers. It's not free. But it pays back in ways that are hard to overstate once you've worked on a team that has it.
+      </p>
+
+      <div class="post-footer">
+        <div class="author">
+          <div class="author__avatar">VA</div>
+          <div>
+            <div class="author__name">Veera Annapureddy</div>
+            <div class="author__bio">Software Engineer - backend systems, distributed architecture, and the occasional process debate.</div>
+          </div>
+        </div>
+        <a href="/writing" class="back-link-bottom">← Back to writing</a>
+      </div>
+
+    </div>
+  </article>
+
+</Base>
+
+<style>
+/* ── Post Hero ─────────────────────────────────── */
+.post-hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.back-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s;
+}
+.back-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+  border-color: var(--accent);
+}
+
+.post-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.post-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.15em 0.5em;
+  border-radius: 2px;
+}
+
+.post-date,
+.post-read {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+}
+
+.post-hero h1 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.post-subtitle {
+  font-size: 1.05rem;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  max-width: 580px;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* ── Post Body ─────────────────────────────────── */
+.post-body {
+  padding: 3.5rem 0 5rem;
+}
+
+.container--narrow {
+  max-width: var(--max-w);
+}
+
+.post-body h2 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 3rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-body h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 2rem 0 0.6rem;
+}
+
+.post-body p {
+  font-size: 0.975rem;
+  color: var(--ink-muted);
+  line-height: 1.8;
+  margin-bottom: 1.4rem;
+}
+
+.post-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.post-body ul li {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.7;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+
+.post-body ul li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  top: 0.1em;
+}
+
+.post-body ul li strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.post-body em {
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* Blockquote */
+blockquote {
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.75rem;
+  border-left: 2px solid var(--accent);
+  background: var(--bg-card);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+/* Numbered steps */
+.numbered-steps {
+  margin: 1.75rem 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.step:last-child { border-bottom: none; }
+
+.step__num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+  padding-top: 0.15rem;
+}
+
+.step div {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+.step strong {
+  color: var(--ink);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* Callout */
+.callout {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  margin: 2.5rem 0;
+}
+
+.callout__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.callout p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+/* Section break */
+.section-break {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3.5rem 0;
+}
+
+/* Takeaway */
+.takeaway {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 2rem 2.25rem;
+  border-radius: var(--radius);
+  margin: 2.5rem 0;
+}
+.takeaway__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.takeaway ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+}
+
+.takeaway ul li {
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  padding: 0.6rem 0 0.6rem 1.2rem;
+  border-bottom: 1px solid var(--border-dark);
+  line-height: 1.6;
+}
+
+.takeaway ul li:last-child { border-bottom: none; }
+
+.takeaway ul li::before {
+  content: "›";
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+/* Post footer */
+.post-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+
+.author__name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+
+.author__bio {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  line-height: 1.5;
+}
+
+.back-link-bottom {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-dark);
+  transition: color 0.15s;
+}
+.back-link-bottom:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+</style>
