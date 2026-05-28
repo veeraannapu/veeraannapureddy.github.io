@@ -1,0 +1,394 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="What a Failed Database Migration Taught Me About Assumptions in Production · Veera Annapureddy" current="writing">
+
+  <section class="post-hero">
+    <div class="container container--narrow">
+      <a href="/writing" class="back-link">← Writing</a>
+      <div class="post-meta">
+        <span class="post-tag">Incident</span>
+        <span class="post-tag">Database</span>
+        <span class="post-tag">CI/CD</span>
+        <span class="post-date">July 2025</span>
+        <span class="post-read">4 min read</span>
+      </div>
+      <h1>What a Failed Database Migration Taught Me About Assumptions in Production</h1>
+      <p class="post-subtitle">
+        A migration script that worked fine in every lower environment. A deployment that looked clean.
+        And then, 30 minutes later, errors in prod. Here's what we missed, why we missed it, and what I'd do differently.
+      </p>
+    </div>
+  </section>
+
+  <article class="post-body">
+    <div class="container container--narrow">
+
+      <h2>What happened</h2>
+
+      <p>
+        Routine deployment. Code changes promoted to production, pipeline completed clean, logs looked fine. Thirty minutes later, errors - customers couldn't see order updates, a column reference firing that didn't exist in the schema.
+      </p>
+
+      <p>
+        Time to detect: 30 minutes. Time to recover: 12 hours.
+      </p>
+
+      <p>
+        The root cause: a database schema change was included in the codebase but the migration script was inadvertently omitted from the production pipeline step. In every environment below prod, that migration had been applied weeks earlier - so nothing caught the gap. The pipeline ran clean. It just didn't run the thing that mattered.
+      </p>
+
+      <h2>The sneaky part</h2>
+
+      <p>
+        We'd been running that migration in lower environments for weeks without a problem. That track record created confidence - exactly the wrong kind. The migration worked fine. What we didn't verify was whether production would actually execute it.
+      </p>
+
+      <div class="callout">
+        <div class="callout__label">The mistake in one sentence</div>
+        <p>
+          We tested the migration. We didn't test that production would run the migration. Lower environments validate the migration - not the pipeline that runs it. Those are two different things.
+        </p>
+      </div>
+
+      <p>
+        The second thing that hurt us: we underestimated recovery time by a significant margin. Every benchmark we had came from lower environment replays. Prod data volume was roughly 10x that. When you're giving stakeholders a recovery timeline during an incident, being off by that factor erodes trust fast. Prod is not a bigger staging. Treat your time estimates accordingly.
+      </p>
+
+      <h2>What I'd do differently</h2>
+
+      <h3>Add a schema pre-flight check to the pipeline</h3>
+      <p>
+        Before deploying code that expects a new schema state, verify that the target environment actually has it. This should be a pipeline gate, not a manual step. If the migration hasn't run, the deployment stops - not silently, not after the fact.
+      </p>
+
+      <h3>Decouple schema changes from app deployments</h3>
+      <p>
+        Run the migration first, confirm the schema, then deploy the application. If the migration fails, you haven't deployed anything - the old code still runs against the old schema. Coupling them means a migration failure becomes a partial deployment problem at the worst possible time.
+      </p>
+
+      <h3>Write error messages for 10 AM under pressure</h3>
+      <p>
+        The error correctly named the missing column. It didn't suggest why it was missing or where to look. That gap added unnecessary time to diagnosis. Good error messages include context - what was expected, what was found, where the configuration comes from. That's not polish, it's part of your recovery tooling.
+      </p>
+
+      <blockquote>
+        This incident wasn't caused by carelessness. It was caused by a system that assumed consistency it hadn't verified. The fix wasn't to be more careful - it was to make the pipeline explicit enough that the gap couldn't hide.
+      </blockquote>
+
+      <div class="takeaway">
+        <div class="takeaway__label">Key takeaways</div>
+        <ul>
+          <li>A clean deployment is not a healthy system - verify schema state, not just deployment status</li>
+          <li>Lower environments validate migrations, not the pipelines that run them</li>
+          <li>Decouple schema changes from app deployments to keep blast radius small</li>
+          <li>Prod volume is not nonprod volume - give recovery estimates as ranges with an explicit multiplier</li>
+          <li>Error messages are recovery tooling - write them before you need them</li>
+        </ul>
+      </div>
+
+      <div class="post-footer">
+        <div class="author">
+          <div class="author__avatar">VA</div>
+          <div>
+            <div class="author__name">Veera Annapureddy</div>
+            <div class="author__bio">Software Engineer - backend systems, distributed architecture, and the occasional production fire.</div>
+          </div>
+        </div>
+        <a href="/writing" class="back-link-bottom">← Back to writing</a>
+      </div>
+
+    </div>
+  </article>
+
+</Base>
+
+<style>
+.post-hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.back-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s;
+}
+.back-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+  border-color: var(--accent);
+}
+
+.post-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.post-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.15em 0.5em;
+  border-radius: 2px;
+}
+
+.post-date,
+.post-read {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+}
+
+.post-hero h1 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.post-subtitle {
+  font-size: 1.05rem;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  max-width: 580px;
+  font-weight: 300;
+  margin: 0;
+}
+
+.post-body {
+  padding: 3.5rem 0 5rem;
+}
+
+.container--narrow {
+  max-width: var(--max-w);
+}
+
+.post-body h2 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 3rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-body h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 2rem 0 0.6rem;
+}
+
+.post-body p {
+  font-size: 0.975rem;
+  color: var(--ink-muted);
+  line-height: 1.8;
+  margin-bottom: 1.4rem;
+}
+
+.post-body em {
+  font-style: italic;
+  color: var(--ink);
+}
+
+blockquote {
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.75rem;
+  border-left: 2px solid var(--accent);
+  border-radius: 0;
+  background: var(--bg-card);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+.numbered-steps {
+  margin: 1.75rem 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.step:last-child { border-bottom: none; }
+
+.step__num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+  padding-top: 0.15rem;
+}
+
+.step div {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+.step strong {
+  color: var(--ink);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.callout {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  margin: 2.5rem 0;
+}
+
+.callout__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.callout p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.section-break {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3.5rem 0;
+}
+
+.takeaway {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 2rem 2.25rem;
+  border-radius: var(--radius);
+  margin: 2.5rem 0;
+}
+
+.takeaway__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.takeaway ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.takeaway ul li {
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  padding: 0.6rem 0 0.6rem 1.2rem;
+  border-bottom: 1px solid var(--border-dark);
+  line-height: 1.6;
+  position: relative;
+}
+
+.takeaway ul li:last-child { border-bottom: none; }
+
+.takeaway ul li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.post-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+
+.author__name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+
+.author__bio {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  line-height: 1.5;
+}
+
+.back-link-bottom {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-dark);
+  transition: color 0.15s;
+}
+.back-link-bottom:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+</style>
